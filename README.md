@@ -2,9 +2,6 @@
 
 A portfolio tracking plugin for InkyPi that displays stock market data in an interactive dashboard format.
 
-## Screenshot
-
-*Note: Add a screenshot of your plugin running on InkyPi by replacing `example.png` with an actual screenshot.*
 
 ## Description
 
