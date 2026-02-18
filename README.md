@@ -17,7 +17,7 @@ InkyPi-StockTracker retrieves real-time stock market data using yfinance and ren
 Install the plugin using the InkyPi CLI, providing the plugin ID and GitHub repository URL:
 
 ```bash
-inkypi install stocktracker https://github.com/efhkdmbc/InkyPi-StockTracker
+inkypi plugin install stocktracker https://github.com/efhkdmbc/InkyPi-StockTracker
 ```
 
 ## Dependencies
