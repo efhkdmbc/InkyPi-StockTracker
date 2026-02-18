@@ -40,7 +40,6 @@ from datetime import datetime, timedelta
 import numpy as np
 from PIL import Image
 import io
-import json
 import logging
 
 
@@ -107,17 +106,17 @@ class StockTracker(BasePlugin):
 				return None
 
 			# Safely access stock info with explicit error handling
+			# yfinance may fail when fetching info due to network issues or invalid responses
 			try:
 				info = stock.info
 				# Validate that info is a dictionary and not empty
 				if not isinstance(info, dict):
 					logging.warning(f"Invalid info response for {ticker}: expected dict, got {type(info)}")
 					info = {}
-			except json.JSONDecodeError as e:
-				logging.error(f"JSON parsing error for {ticker} info: {e}. Response may be empty or malformed.")
-				info = {}
 			except Exception as e:
-				logging.error(f"Unexpected error fetching info for {ticker}: {type(e).__name__}: {e}")
+				# Catch any error from yfinance when accessing info
+				# This includes JSONDecodeError wrapped by yfinance, network errors, etc.
+				logging.error(f"Error fetching info for {ticker}: {type(e).__name__}: {e}")
 				info = {}
 
 			current_price = hist['Close'].iloc[-1]
@@ -137,11 +136,10 @@ class StockTracker(BasePlugin):
 				'history': hist
 			}
 		except Exception as e:
-			# Provide detailed error information for debugging
-			error_type = type(e).__name__
-			error_msg = str(e)
-			logging.error(f"Failed to fetch data for {ticker}: {error_type}: {error_msg}")
-			raise RuntimeError(f"Error fetching {ticker}: {error_type}: {error_msg}")
+			# Log detailed error information for debugging
+			logging.error(f"Failed to fetch data for {ticker}: {type(e).__name__}: {e}")
+			# Raise with simplified error message matching the format in the issue
+			raise RuntimeError(f"Error fetching {ticker}; {str(e)}")
 
 	def _create_portfolio_chart(self, ax, stock_data):
 
