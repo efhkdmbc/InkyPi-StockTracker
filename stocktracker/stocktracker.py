@@ -288,8 +288,12 @@ class StockTracker(BasePlugin):
 			# Card position with spacing
 			card_height = self.CARD_HEIGHT_RATIO
 			card_width = self.CARD_WIDTH_RATIO
-			left = 0.05 + col * 0.48
-			bottom = 0.70 - row * 0.26
+			CARD_LEFT_MARGIN = 0.05
+			CARD_COLUMN_SPACING = 0.48
+			CARD_TOP_POSITION = 0.70
+			CARD_ROW_SPACING = 0.26
+			left = CARD_LEFT_MARGIN + col * CARD_COLUMN_SPACING
+			bottom = CARD_TOP_POSITION - row * CARD_ROW_SPACING
 
 			# Stock info card
 			ax_card = fig.add_axes([left, bottom, card_width, card_height * 0.35])
