@@ -104,7 +104,15 @@ class StockTracker(BasePlugin):
 		try:
 			stock = yf.Ticker(ticker)
 			hist = stock.history(period=period)
-			
+
+			if hist.empty:
+				# Intraday periods (e.g. '1d') return no data outside market hours.
+				# Fall back to 5 trading days of daily candles which are always available.
+				logging.warning(
+					f"No data for {ticker} with period={period}, retrying with period='5d', interval='1d'"
+				)
+				hist = stock.history(period='5d', interval='1d')
+
 			if hist.empty:
 				logging.warning(f"No historical data available for ticker: {ticker}")
 				return None
