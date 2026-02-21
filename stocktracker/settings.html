@@ -104,6 +104,42 @@
     background-color: #cbd5e0;
 }
 
+@media (prefers-color-scheme: dark) {
+    .form-group label {
+        color: #e2e8f0;
+    }
+
+    .form-group input,
+    .form-group select {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+    }
+
+    .form-group input::placeholder {
+        color: #718096;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        border-color: #63b3ed;
+        box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
+    }
+
+    .form-group small {
+        color: #a0aec0;
+    }
+
+    .btn-secondary {
+        background-color: #4a5568;
+        color: #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+        background-color: #2d3748;
+    }
+}
+
 </style>
 
 <script>
